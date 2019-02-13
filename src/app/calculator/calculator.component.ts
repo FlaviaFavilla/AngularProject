@@ -35,17 +35,23 @@ export class CalculatorComponent implements OnInit {
 
   onOperatorAct(operator) {
     this.operatorAct = operator;
+    this.dispayNumber = this.numberCreate.toString();
+    this.dispayNumber = this.dispayNumber.replace(/,/g , '');
     switch (this.operatorAct) {
-      case 'del' : this.numberCreate.pop(); console.log(this.numberCreate); break;
-      case '+' : console.log('+'); break;
+      case 'del' : this.numberCreate.pop();
+                   this.dispayNumber = this.numberCreate.toString().replace(/,/g , '');
+                   break;
+      case '+' : this.dispayNumber = this.dispayNumber + ' + ';
+                 this.numberCreate = [];
+                 console.log('+');
+                 break;
       case '-' : console.log('-'); break;
       case 'x' : console.log('x'); break;
       case '/' : console.log('/'); break;
       case '=' : console.log('='); break;
       default : console.log(this.numberCreate);
     }
-    // console.log(this.numberCreate);
-    this.dispayNumber = this.numberCreate.toString();
-    this.dispayNumber = this.dispayNumber.replace(/,/g , '');
+    console.log(this.numberCreate);
+
   }
 }
