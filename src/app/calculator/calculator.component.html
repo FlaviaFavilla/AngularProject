@@ -3,8 +3,29 @@
     <h1>{{ title }}</h1>
   </div>
 
-  <div class="col-6 offset-3" style="background-color: #e3f2fd;">
-    <p>ciao</p>
+  <div class="col-6 offset-3 pad" style="background-color: #e3f2fd;">
+
+    <div class="row">
+      Input: {{ dispayNumber }}
+    </div>
+    <div class="row">
+      <div class="col-4 pad-numb" *ngFor="let numb of numTab; trackBy:indexTracker" (click)="onAddNumber(numb)" >
+        {{ numb }}
+      </div>
+    </div>
+
   </div>
+
+  <div class="col-3" style="background-color: #eee3fd;">
+    Input: {{ operatorAct }}
+    <div class="row">
+      <div class="col-12 pad-numb" *ngFor="let operator of operators; trackBy:indexTracker" (click)="onOperatorAct(operator)">
+        {{ operator }}
+      </div>
+    </div>
+
+  </div>
+
+
 </div>
 
