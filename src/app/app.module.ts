@@ -3,14 +3,22 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { NavComponent } from './nav/nav.component';
+import { NavNavigationComponent } from './nav-navigation/nav-navigation.component';
+import { CalculatorComponent } from './calculator/calculator.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavComponent,
+    NavNavigationComponent,
+    CalculatorComponent
   ],
   imports: [
     BrowserModule,
-    ButtonsModule.forRoot()
+    ButtonsModule.forRoot(),
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
