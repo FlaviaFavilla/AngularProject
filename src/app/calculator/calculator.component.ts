@@ -12,8 +12,10 @@ export class CalculatorComponent implements OnInit {
   operators = ['del', '/', 'x', '-', '+', '='];
 
   numberCreate = [];
+  calculationCreate = [];
   dispayNumber = '';
   operatorAct = '';
+  calcNumb;
   constructor() {
 
   }
@@ -25,25 +27,28 @@ export class CalculatorComponent implements OnInit {
     return index;
   }
 
-  onAddNumber(numb) {
-    this.numberCreate.push(numb);
+  generateNumber() {
     this.dispayNumber = this.numberCreate.toString();
     this.dispayNumber = this.dispayNumber.replace(/,/g , '');
+    this.calcNumb = parseFloat(this.dispayNumber);
     console.log(this.numberCreate);
+  }
+  onAddNumber(numb) {
+    this.numberCreate.push(numb);
+    this.generateNumber();
     return this.numberCreate;
   }
 
   onOperatorAct(operator) {
     this.operatorAct = operator;
-    this.dispayNumber = this.numberCreate.toString();
-    this.dispayNumber = this.dispayNumber.replace(/,/g , '');
     switch (this.operatorAct) {
       case 'del' : this.numberCreate.pop();
-                   this.dispayNumber = this.numberCreate.toString().replace(/,/g , '');
+                   this.generateNumber();
                    break;
       case '+' : this.dispayNumber = this.dispayNumber + ' + ';
-                 this.numberCreate = [];
-                 console.log('+');
+                 this.calculationCreate.concat(this.numberCreate).push(this.dispayNumber);
+                 // this.numberCreate = [];
+                 console.log(this.calculationCreate, this.numberCreate);
                  break;
       case '-' : console.log('-'); break;
       case 'x' : console.log('x'); break;
