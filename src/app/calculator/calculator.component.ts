@@ -11,11 +11,12 @@ export class CalculatorComponent implements OnInit {
   numTab = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '00', '.'];
   operators = ['del', '/', 'x', '-', '+', '='];
 
-  numberCreate = [];
-  calculationCreate = [];
-  dispayNumber = '';
-  operatorAct = '';
-  calcNumb;
+  numberInput = [];
+  operatorInput = '';
+  calculatorInputs = [];
+  numberString = '';
+  numberFloat;
+  result;
   constructor() {
 
   }
@@ -28,42 +29,38 @@ export class CalculatorComponent implements OnInit {
   }
 
   generateNumber() {
-    this.dispayNumber = this.numberCreate.toString();
-    this.dispayNumber = this.dispayNumber.replace(/,/g , '');
-    this.calcNumb = parseFloat(this.dispayNumber);
-    console.log(this.numberCreate);
+    this.numberString = this.numberInput.toString();
+    this.numberString = this.numberString.replace(/,/g , '');
+    this.numberFloat = parseFloat(this.numberString);
+    // console.log(this.numberInput);
   }
   onAddNumber(numb) {
-    this.numberCreate.push(numb);
+    this.numberInput.push(numb);
     this.generateNumber();
-    return this.numberCreate;
+    return this.numberInput;
   }
   summatory() {
-    console.log('stampa risultato');
+    this.result = this.calculatorInputs.reduce((a, b) => a + b);
+    console.log('stampa result: ' + this.result);
   }
   onOperatorAct(operator) {
-    this.operatorAct = operator;
-    switch (this.operatorAct) {
-      case 'del' : this.numberCreate.pop();
+    this.operatorInput = operator;
+    switch (this.operatorInput) {
+      case 'del' : this.numberInput.pop();
                    this.generateNumber();
                    break;
-      // case '+' : //this.generateNumber();
-      //            // this.calcNumb = this.calcNumb;
-      //            console.log(this.calcNumb, this.calculationCreate, this.operatorAct);
-      //            this.calculationCreate.push(this.calcNumb, this.operatorAct);
-      //            this.numberCreate = [];
-      //            console.log(this.calculationCreate);
-      //            break;
-      // case '-' : console.log('-'); break;
-      // case 'x' : console.log('x'); break;
-      // case '/' : console.log('/'); break;
-      case '=' :  console.log('=');
+      case '=' :  this.calculatorInputs.push(this.numberFloat);
+                  // this.numberInput = [];
+                  console.log('=', this.calculatorInputs);
                   this.summatory();
+                  this.numberFloat = null;
+                  console.log('numberFloat:' + this.numberFloat);
                   break;
-      default : console.log(this.calcNumb, this.calculationCreate, this.operatorAct);
-                this.calculationCreate.push(this.calcNumb, this.operatorAct);
-                this.numberCreate = [];
-                console.log(this.calculationCreate);
+      default : //console.log(this.numberFloat, this.calculatorInputs, this.operatorInput);
+                this.calculatorInputs.push(this.numberFloat);
+                // this.calculatorInputs.push(this.numberFloat, this.operatorInput);
+                this.numberInput = [];
+                console.log(this.calculatorInputs);
     }
 
   }

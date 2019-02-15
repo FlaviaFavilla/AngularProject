@@ -6,7 +6,8 @@
   <div class="col-6 offset-3 pad" style="background-color: #e3f2fd;">
 
     <div class="row">
-      Input: {{ dispayNumber }}
+      Input: {{ numberString }} <br>
+      Risultato: {{ result }}
     </div>
     <div class="row">
       <div class="col-4 pad-numb" *ngFor="let numb of numTab; trackBy:indexTracker" (click)="onAddNumber(numb)" >
@@ -17,7 +18,7 @@
   </div>
 
   <div class="col-3" style="background-color: #eee3fd;">
-    <!--Input: {{ operatorAct }}-->
+    <!--Input: {{ operatorInput }}-->
     <div class="row">
       <div class="col-12 pad-numb" *ngFor="let operator of operators; trackBy:indexTracker" (click)="onOperatorAct(operator)">
         {{ operator }}
