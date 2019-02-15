@@ -40,7 +40,8 @@ export class CalculatorComponent implements OnInit {
     return this.numberInput;
   }
   summatory() {
-    this.result = this.calculatorInputs.reduce((a, b) => a + b);
+    console.log('calculatorInputs:' + JSON.stringify(this.calculatorInputs));
+    this.result = this.calculatorInputs.reduce((a, b) => eval(a.number + a.operator + b.number));
     console.log('stampa result: ' + this.result);
   }
   onOperatorAct(operator) {
@@ -49,18 +50,20 @@ export class CalculatorComponent implements OnInit {
       case 'del' : this.numberInput.pop();
                    this.generateNumber();
                    break;
-      case '=' :  this.calculatorInputs.push(this.numberFloat);
-                  // this.numberInput = [];
+      case '=' :  //this.calculatorInputs.push(this.numberFloat);
+                  this.calculatorInputs.push({ number: this.numberFloat, operator: this.operatorInput });
                   console.log('=', this.calculatorInputs);
                   this.summatory();
-                  this.numberFloat = null;
-                  console.log('numberFloat:' + this.numberFloat);
+                  this.numberFloat = this.result;
+                  // this.numberFloat = null;
+                  // console.log('numberFloat:' + this.numberFloat);
                   break;
       default : //console.log(this.numberFloat, this.calculatorInputs, this.operatorInput);
-                this.calculatorInputs.push(this.numberFloat);
+                // this.calculatorInputs.push(this.numberFloat);
                 // this.calculatorInputs.push(this.numberFloat, this.operatorInput);
+                this.calculatorInputs.push({ number: this.numberFloat, operator: this.operatorInput });
                 this.numberInput = [];
-                console.log(this.calculatorInputs);
+                console.log('calculatorInputs: ' + this.calculatorInputs);
     }
 
   }
