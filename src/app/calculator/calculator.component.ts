@@ -9,7 +9,7 @@ export class CalculatorComponent implements OnInit {
 
   title = 'Calculator';
   numTab = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '00', '.'];
-  operators = ['del', '/', 'x', '-', '+', '='];
+  operators = ['del', '/', '*', '-', '+', '='];
 
   numberInput = [];
   operatorInput = '';
@@ -17,6 +17,7 @@ export class CalculatorComponent implements OnInit {
   numberString = '';
   numberFloat;
   result;
+  array = [1,'+',4];
   constructor() {
 
   }
@@ -42,6 +43,8 @@ export class CalculatorComponent implements OnInit {
   summatory() {
     console.log('calculatorInputs:' + JSON.stringify(this.calculatorInputs));
     this.result = this.calculatorInputs.reduce((a, b) => eval(a.number + a.operator + b.number));
+    // this.result = this.array.reduce((a, b) => eval(a + b), 0);
+    // arr.reduce((a, b) => ({x: a.x + b.x}));
     console.log('stampa result: ' + this.result);
   }
   onOperatorAct(operator) {
