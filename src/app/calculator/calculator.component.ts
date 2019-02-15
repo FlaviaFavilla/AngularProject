@@ -38,25 +38,33 @@ export class CalculatorComponent implements OnInit {
     this.generateNumber();
     return this.numberCreate;
   }
-
+  summatory() {
+    console.log('stampa risultato');
+  }
   onOperatorAct(operator) {
     this.operatorAct = operator;
     switch (this.operatorAct) {
       case 'del' : this.numberCreate.pop();
                    this.generateNumber();
                    break;
-      case '+' : this.dispayNumber = this.dispayNumber + ' + ';
-                 this.calculationCreate.concat(this.numberCreate).push(this.dispayNumber);
-                 // this.numberCreate = [];
-                 console.log(this.calculationCreate, this.numberCreate);
-                 break;
-      case '-' : console.log('-'); break;
-      case 'x' : console.log('x'); break;
-      case '/' : console.log('/'); break;
-      case '=' : console.log('='); break;
-      default : console.log(this.numberCreate);
+      // case '+' : //this.generateNumber();
+      //            // this.calcNumb = this.calcNumb;
+      //            console.log(this.calcNumb, this.calculationCreate, this.operatorAct);
+      //            this.calculationCreate.push(this.calcNumb, this.operatorAct);
+      //            this.numberCreate = [];
+      //            console.log(this.calculationCreate);
+      //            break;
+      // case '-' : console.log('-'); break;
+      // case 'x' : console.log('x'); break;
+      // case '/' : console.log('/'); break;
+      case '=' :  console.log('=');
+                  this.summatory();
+                  break;
+      default : console.log(this.calcNumb, this.calculationCreate, this.operatorAct);
+                this.calculationCreate.push(this.calcNumb, this.operatorAct);
+                this.numberCreate = [];
+                console.log(this.calculationCreate);
     }
-    console.log(this.numberCreate);
 
   }
 }
