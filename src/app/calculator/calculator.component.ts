@@ -11,13 +11,12 @@ export class CalculatorComponent implements OnInit {
   numTab = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '00', '.'];
   operators = ['del', '/', '*', '-', '+', '='];
 
-  numberInput = [];
+  numberInput = '';
   operatorInput = '';
   calculatorInputs = [];
   numberString = '';
   numberFloat;
   result;
-  array = [1,'+',4];
   constructor() {
 
   }
@@ -29,44 +28,38 @@ export class CalculatorComponent implements OnInit {
     return index;
   }
 
-  generateNumber() {
-    this.numberString = this.numberInput.toString();
-    this.numberString = this.numberString.replace(/,/g , '');
-    this.numberFloat = parseFloat(this.numberString);
-    // console.log(this.numberInput);
-  }
+  // generateNumber() {
+  //   this.numberString = this.numberInput.toString();
+  //   this.numberString = this.numberString.replace(/,/g , '');
+  //   this.numberFloat = parseFloat(this.numberString);
+  //   // console.log(this.numberInput);
+  // }
+
+  //  ---- generate string of number input -----
   onAddNumber(numb) {
-    this.numberInput.push(numb);
-    this.generateNumber();
+    this.numberInput += numb;
+    console.log(this.numberInput);
+    this.numberString = this.numberInput;
     return this.numberInput;
   }
   summatory() {
-    console.log('calculatorInputs:' + JSON.stringify(this.calculatorInputs));
-    this.result = this.calculatorInputs.reduce((a, b) => eval(a.number + a.operator + b.number));
-    // this.result = this.array.reduce((a, b) => eval(a + b), 0);
-    // arr.reduce((a, b) => ({x: a.x + b.x}));
+    this.result = eval(this.numberInput);
     console.log('stampa result: ' + this.result);
   }
+
   onOperatorAct(operator) {
     this.operatorInput = operator;
     switch (this.operatorInput) {
-      case 'del' : this.numberInput.pop();
-                   this.generateNumber();
+      case 'del' : this.numberInput = this.numberInput.slice(0, -1).trim();
                    break;
-      case '=' :  //this.calculatorInputs.push(this.numberFloat);
-                  this.calculatorInputs.push({ number: this.numberFloat, operator: this.operatorInput });
-                  console.log('=', this.calculatorInputs);
+      case '=' :  console.log('=', this.calculatorInputs);
                   this.summatory();
                   this.numberFloat = this.result;
                   // this.numberFloat = null;
                   // console.log('numberFloat:' + this.numberFloat);
                   break;
-      default : //console.log(this.numberFloat, this.calculatorInputs, this.operatorInput);
-                // this.calculatorInputs.push(this.numberFloat);
-                // this.calculatorInputs.push(this.numberFloat, this.operatorInput);
-                this.calculatorInputs.push({ number: this.numberFloat, operator: this.operatorInput });
-                this.numberInput = [];
-                console.log('calculatorInputs: ' + this.calculatorInputs);
+      default : this.numberInput = this.numberInput + ' ' + this.operatorInput + ' ';
+                console.log('calculatorInputs: ' + this.calculatorInputs , this.numberInput);
     }
 
   }
