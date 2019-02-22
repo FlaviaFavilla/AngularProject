@@ -9,7 +9,15 @@ export class CalculatorComponent implements OnInit {
 
   title = 'Calculator';
   numTab = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '00', '.'];
-  operators = ['del', '/', '*', '-', '+', '='];
+  // operators = ['del', '/', '*', '-', '+', '='];
+  operators = [
+                { display: 'del', value: 'del'},
+                { display: '/', value: '/'},
+                { display: 'X', value: '*'},
+                { display: '-', value: '-'},
+                { display: '+', value: '+'},
+                { display: '=', value: '='}
+               ];
 
   numberInput = '';
   operatorInput = '';
@@ -54,9 +62,6 @@ export class CalculatorComponent implements OnInit {
                    break;
       case '=' :  console.log('=', this.calculatorInputs);
                   this.summatory();
-                  this.numberFloat = this.result;
-                  // this.numberFloat = null;
-                  // console.log('numberFloat:' + this.numberFloat);
                   break;
       default : this.numberInput = this.numberInput + ' ' + this.operatorInput + ' ';
                 console.log('calculatorInputs: ' + this.calculatorInputs , this.numberInput);

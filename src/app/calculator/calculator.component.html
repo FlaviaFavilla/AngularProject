@@ -1,13 +1,22 @@
+<ng-template #empty>
+  <p>&nbsp;</p>
+</ng-template>
+
+
 <div class="row">
   <div class="col-12">
     <h1>{{ title }}</h1>
   </div>
 
-  <div class="col-6 offset-3 pad" style="background-color: #e3f2fd;">
+  <div class="col-3 offset-4 pad" style="background-color: #e3f2fd;">
 
-    <div class="row">
-      Input: {{ numberInput }} <br>
-      Risultato: {{ result }}
+    <div class="row pad-display">
+      <div class="col-12">
+        <p *ngIf="numberInput; else empty">{{ numberInput }}</p>
+      </div>
+      <div class="col-12">
+        <p *ngIf="result; else empty" >= {{ result }}</p>
+      </div>
     </div>
     <div class="row">
       <div class="col-4 pad-numb" *ngFor="let numb of numTab; trackBy:indexTracker" (click)="onAddNumber(numb)" >
@@ -17,11 +26,11 @@
 
   </div>
 
-  <div class="col-3" style="background-color: #eee3fd;">
+  <div class="col-1" style="background-color: #eee3fd;">
     <!--Input: {{ operatorInput }}-->
     <div class="row">
-      <div class="col-12 pad-numb" *ngFor="let operator of operators; trackBy:indexTracker" (click)="onOperatorAct(operator)">
-        {{ operator }}
+      <div class="col-12 pad-numb" *ngFor="let operator of operators; trackBy:indexTracker" (click)="onOperatorAct(operator.value)">
+        {{ operator.display }}
       </div>
     </div>
 
