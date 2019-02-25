@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-calculator',
@@ -25,6 +26,15 @@ export class CalculatorComponent implements OnInit {
   numberString = '';
   numberFloat;
   result;
+  moltOper;
+  divOper;
+  partialResult;
+  math_up = {
+    '+': function(a, b) { return a + b },
+    '-': function(a, b) { return a - b },
+    '*': function(a, b) { return a * b },
+    '/': function(a, b) { return a / b }
+  };
   constructor() {
 
   }
@@ -51,8 +61,21 @@ export class CalculatorComponent implements OnInit {
     return this.numberInput;
   }
   summatory() {
-    this.result = eval(this.numberInput);
-    console.log('stampa result: ' + this.result);
+    // this.result = eval(this.numberInput);
+    // this.calculatorInputs.forEach(function(item){
+    //   console.log(item);
+    // });
+
+    ///////----sistemare----- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    while(this.calculatorInput == 1){
+      this.moltOper = this.calculatorInputs.indexOf('*');
+      this.moltOper = this.calculatorInputs.indexOf('/');
+      this.partialResult = this.math_up[this.calculatorInputs[this.moltOper]](this.calculatorInputs[(this.moltOper - 1)], this.calculatorInputs[(this.moltOper + 1)]);
+      this.calculatorInputs.splice((this.moltOper - 1), 3, this.partialResult);
+    }
+
+    console.log('stampa result: ' + this.result, this.calculatorInputs);
   }
 
   onOperatorAct(operator) {
@@ -60,10 +83,14 @@ export class CalculatorComponent implements OnInit {
     switch (this.operatorInput) {
       case 'del' : this.numberInput = this.numberInput.slice(0, -1).trim();
                    break;
-      case '=' :  console.log('=', this.calculatorInputs);
+      case '=' :  this.calculatorInputs.push(this.numberInput);
+                  console.log('=', this.calculatorInputs);
                   this.summatory();
                   break;
-      default : this.numberInput = this.numberInput + ' ' + this.operatorInput + ' ';
+      default : this.calculatorInputs.push(this.numberInput, this.operatorInput);
+                console.log('calculatorInputs array: ' + this.calculatorInputs , this.numberInput);
+                this.numberInput = '';
+                // this.numberInput = this.numberInput + ' ' + this.operatorInput + ' ';
                 console.log('calculatorInputs: ' + this.calculatorInputs , this.numberInput);
     }
 
