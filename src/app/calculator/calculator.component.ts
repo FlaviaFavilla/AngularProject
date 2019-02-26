@@ -25,11 +25,11 @@ export class CalculatorComponent implements OnInit {
   calculatorInputs = [];
   numberString = '';
   numberFloat;
-  result;
+  result = 0;
   moltOper;
   divOper;
   partialResult;
-  math_up = {
+  mathUp = {
     '+': function(a, b) { return a + b },
     '-': function(a, b) { return a - b },
     '*': function(a, b) { return a * b },
@@ -61,19 +61,21 @@ export class CalculatorComponent implements OnInit {
     return this.numberInput;
   }
   summatory() {
-    // this.result = eval(this.numberInput);
-    // this.calculatorInputs.forEach(function(item){
-    //   console.log(item);
-    // });
 
-    ///////----sistemare----- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-    while(this.calculatorInput == 1){
-      this.moltOper = this.calculatorInputs.indexOf('*');
-      this.moltOper = this.calculatorInputs.indexOf('/');
-      this.partialResult = this.math_up[this.calculatorInputs[this.moltOper]](this.calculatorInputs[(this.moltOper - 1)], this.calculatorInputs[(this.moltOper + 1)]);
-      this.calculatorInputs.splice((this.moltOper - 1), 3, this.partialResult);
+    while (this.moltOper === undefined || this.moltOper != null) {
+      // find in array + and / to perform them before + and -
+      this.moltOper = this.calculatorInputs.indexOf('*') !== -1 ? this.calculatorInputs.indexOf('*') : this.calculatorInputs.indexOf('/')  !== -1 ? this.calculatorInputs.indexOf('/') : null;
+      // console.log(this.moltOper);
+      if (this.moltOper != null) {
+        // perform moltiplications and divisions, then save result in array
+        this.partialResult = this.mathUp[this.calculatorInputs[this.moltOper]](this.calculatorInputs[(this.moltOper - 1)], this.calculatorInputs[(this.moltOper + 1)]);
+        this.calculatorInputs.splice((this.moltOper - 1), 3, this.partialResult);
+      }
     }
+    console.log( this.calculatorInputs);
+    // this.result = this.mathUp[this.calculatorInputs[this.moltOper]](this.calculatorInputs[(this.moltOper - 1)], this.calculatorInputs[(this.moltOper + 1)]);
+    this.calculatorInputs.forEach( (element) => this.result += element );
+
 
     console.log('stampa result: ' + this.result, this.calculatorInputs);
   }
