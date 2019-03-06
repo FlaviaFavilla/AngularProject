@@ -27,6 +27,7 @@ export class CalculatorComponent implements OnInit {
   numberFloat;
   result = 0;
   moltOper;
+  sumOper;
   divOper;
   partialResult;
   mathUp = {
@@ -35,6 +36,8 @@ export class CalculatorComponent implements OnInit {
     '*': function(a, b) { return a * b },
     '/': function(a, b) { return a / b }
   };
+  regex1 = ['*','/'];
+  regex2 = ['+','-'];
   constructor() {
 
   }
@@ -63,18 +66,37 @@ export class CalculatorComponent implements OnInit {
   summatory() {
 
     while (this.moltOper === undefined || this.moltOper != null) {
+      console.log('arr in arr: ' + this.calculatorInputs.findIndex(el => this.regex1.includes(el)));
       // find in array + and / to perform them before + and -
-      this.moltOper = this.calculatorInputs.indexOf('*') !== -1 ? this.calculatorInputs.indexOf('*') : this.calculatorInputs.indexOf('/')  !== -1 ? this.calculatorInputs.indexOf('/') : null;
+      this.moltOper = this.calculatorInputs.findIndex(el => this.regex1.includes(el));
+      // this.moltOper = this.calculatorInputs.indexOf('*') !== -1 ? this.calculatorInputs.indexOf('*') : this.calculatorInputs.indexOf('/')  !== -1 ? this.calculatorInputs.indexOf('/') : null;
       // console.log(this.moltOper);
-      if (this.moltOper != null) {
+      if (this.moltOper != null || this.moltOper != -1) {
         // perform moltiplications and divisions, then save result in array
         this.partialResult = this.mathUp[this.calculatorInputs[this.moltOper]](this.calculatorInputs[(this.moltOper - 1)], this.calculatorInputs[(this.moltOper + 1)]);
+        console.log(this.partialResult);
         this.calculatorInputs.splice((this.moltOper - 1), 3, this.partialResult);
+        console.log(this.calculatorInputs);
       }
     }
-    console.log( this.calculatorInputs);
+    console.log( this.calculatorInputs, this.sumOper);
+
+    while (this.sumOper === undefined || this.sumOper != null) {
+      console.log('arr in arr: ' + this.calculatorInputs.findIndex(el => this.regex2.includes(el)));
+      // find in array + and / to perform them before + and -
+      this.sumOper = this.calculatorInputs.findIndex(el => this.regex2.includes(el));
+      // this.moltOper = this.calculatorInputs.indexOf('*') !== -1 ? this.calculatorInputs.indexOf('*') : this.calculatorInputs.indexOf('/')  !== -1 ? this.calculatorInputs.indexOf('/') : null;
+      // console.log(this.moltOper);
+      if (this.sumOper != null || this.sumOper != -1) {
+        // perform moltiplications and divisions, then save result in array
+        this.partialResult = this.mathUp[this.calculatorInputs[this.sumOper]](this.calculatorInputs[(this.sumOper - 1)], this.calculatorInputs[(this.sumOper + 1)]);
+        console.log(this.partialResult);
+        this.calculatorInputs.splice((this.sumOper - 1), 3, this.partialResult);
+        console.log(this.calculatorInputs);
+      }
+    }
     // this.result = this.mathUp[this.calculatorInputs[this.moltOper]](this.calculatorInputs[(this.moltOper - 1)], this.calculatorInputs[(this.moltOper + 1)]);
-    this.calculatorInputs.forEach( (element) => this.result += element );
+    // this.calculatorInputs.forEach( (element) => this.result += element );
 
 
     console.log('stampa result: ' + this.result, this.calculatorInputs);
