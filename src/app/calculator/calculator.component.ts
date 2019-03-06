@@ -64,22 +64,27 @@ export class CalculatorComponent implements OnInit {
     return this.numberInput;
   }
   summatory() {
+    console.log(this.calculatorInputs, 'out of while ' + this.moltOper);
 
-    while (this.moltOper === undefined || this.moltOper != null) {
-      console.log('arr in arr: ' + this.calculatorInputs.findIndex(el => this.regex1.includes(el)));
+    while (this.moltOper === undefined || this.moltOper != null ) {
+      // console.log('arr in arr: ' + this.calculatorInputs.findIndex(el => this.regex1.includes(el)));
       // find in array + and / to perform them before + and -
       this.moltOper = this.calculatorInputs.findIndex(el => this.regex1.includes(el));
       // this.moltOper = this.calculatorInputs.indexOf('*') !== -1 ? this.calculatorInputs.indexOf('*') : this.calculatorInputs.indexOf('/')  !== -1 ? this.calculatorInputs.indexOf('/') : null;
       // console.log(this.moltOper);
-      if (this.moltOper != null || this.moltOper != -1) {
+     // if ( this.moltOper == -1) { console.log('esci'); return this.calculatorInputs }
+     console.log('before if ' + this.moltOper);
+      if (this.moltOper != null && this.moltOper != -1) {
         // perform moltiplications and divisions, then save result in array
         this.partialResult = this.mathUp[this.calculatorInputs[this.moltOper]](this.calculatorInputs[(this.moltOper - 1)], this.calculatorInputs[(this.moltOper + 1)]);
         console.log(this.partialResult);
-        this.calculatorInputs.splice((this.moltOper - 1), 3, this.partialResult);
-        console.log(this.calculatorInputs);
+         this.calculatorInputs.splice((this.moltOper - 1), 3, this.partialResult);
+      } else if( this.moltOper === -1){
+        break;
       }
+      console.log(this.calculatorInputs, 'after if ' + this.moltOper);
     }
-    console.log( this.calculatorInputs, this.sumOper);
+    console.log('out '+  this.calculatorInputs, this.sumOper);
 
     while (this.sumOper === undefined || this.sumOper != null) {
       console.log('arr in arr: ' + this.calculatorInputs.findIndex(el => this.regex2.includes(el)));
@@ -87,13 +92,17 @@ export class CalculatorComponent implements OnInit {
       this.sumOper = this.calculatorInputs.findIndex(el => this.regex2.includes(el));
       // this.moltOper = this.calculatorInputs.indexOf('*') !== -1 ? this.calculatorInputs.indexOf('*') : this.calculatorInputs.indexOf('/')  !== -1 ? this.calculatorInputs.indexOf('/') : null;
       // console.log(this.moltOper);
-      if (this.sumOper != null || this.sumOper != -1) {
+      if (this.sumOper != null && this.sumOper != -1) {
         // perform moltiplications and divisions, then save result in array
         this.partialResult = this.mathUp[this.calculatorInputs[this.sumOper]](this.calculatorInputs[(this.sumOper - 1)], this.calculatorInputs[(this.sumOper + 1)]);
         console.log(this.partialResult);
         this.calculatorInputs.splice((this.sumOper - 1), 3, this.partialResult);
         console.log(this.calculatorInputs);
+      } else if( this.sumOper === -1){
+        break;
       }
+      console.log('end '+  this.calculatorInputs);
+
     }
     // this.result = this.mathUp[this.calculatorInputs[this.moltOper]](this.calculatorInputs[(this.moltOper - 1)], this.calculatorInputs[(this.moltOper + 1)]);
     // this.calculatorInputs.forEach( (element) => this.result += element );
